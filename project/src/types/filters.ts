@@ -1,4 +1,4 @@
-export type TypeFilter = {
+export type GenreFilter = {
   text: string;
   type: string;
   icon: {

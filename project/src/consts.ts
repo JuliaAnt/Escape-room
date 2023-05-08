@@ -1,6 +1,6 @@
-import { LevelFilter, TypeFilter } from './types/filters';
+import { LevelFilter, GenreFilter } from './types/filters';
 
-export const TYPE_FILTERS: TypeFilter[] = [
+export const GENRE_FILTERS: GenreFilter[] = [
   {
     text: 'Все квесты',
     type: 'all',
@@ -80,8 +80,8 @@ export enum AppRoute {
   MyQuests = '/my-quests',
   Login = '/login',
   Main = '/',
-  Quest = '/quest/:type',
-  Booking = '/quest/:type/booking',
+  Quest = '/quest/:id',
+  Booking = '/quest/:id/booking',
   Contact = '/contacts',
 }
 

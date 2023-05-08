@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import LevelFilterList from '../../components/level-filter-list/level-filter-list';
 import Logo from '../../components/logo/logo';
-import TypeFilterList from '../../components/type-filter-list/type-filter-list';
+import GenreFilterList from '../../components/genre-filter-list/genre-filter-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { getQuests } from '../../store/selectors';
 import { fetchQuestsAction } from '../../store/api-actions';
@@ -16,10 +16,8 @@ function MainPage(): JSX.Element {
   }, [dispatch]);
 
   return (
-    <div className="wrapper">
-      <header className="header">
-        <Logo />
-      </header>
+    <>
+      <Logo />
       <main className="page-content">
         <div className="container">
           <div className="page-content__title-wrapper">
@@ -31,7 +29,7 @@ function MainPage(): JSX.Element {
             <form className="filter" action="#" method="get">
               <fieldset className="filter__section">
                 <legend className="visually-hidden">Тематика</legend>
-                <TypeFilterList />
+                <GenreFilterList />
               </fieldset>
               <fieldset className="filter__section">
                 <legend className="visually-hidden">Сложность</legend>
@@ -71,7 +69,7 @@ function MainPage(): JSX.Element {
           </div>
         </div>
       </footer>
-    </div>
+    </>
   );
 }
 

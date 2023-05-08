@@ -4,6 +4,6 @@ export type QuestCardType = {
   type: string;
   previewImg: string;
   previewImgWebp: string;
-  peopleMinMax: string;
+  peopleMinMax: [number, number];
   level: string;
 }
