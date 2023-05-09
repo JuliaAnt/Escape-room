@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function Logo(): JSX.Element {
   return (
     <header className="header">
@@ -10,7 +12,7 @@ function Logo(): JSX.Element {
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <a className="link active" href="index.html">Квесты</a>
+              <Link className="link" to="/">Квесты</Link>
             </li>
             <li className="main-nav__item">
               <a className="link" href="contacts.html">Контакты</a>

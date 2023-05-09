@@ -1,16 +1,11 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import { GENRE_FILTERS, LEVEL_FILTERS } from '../../consts';
-// import { QuestType } from '../../types/quest';
 import { useEffect } from 'react';
 import { store } from '../../store/index';
 import { fetchSelectedQuestAction } from '../../store/api-actions';
 import { getSelectedQuest } from '../../store/selectors';
 import { useAppSelector } from '../../hooks/redux-hooks';
-
-// type QuestPageProps = {
-//   quest: QuestType;
-// }
 
 function QuestPage(): JSX.Element {
   const { id: questId } = useParams<{ id: string }>();
@@ -54,7 +49,7 @@ function QuestPage(): JSX.Element {
               </li>
             </ul>
             <p className="quest-page__description">{description}</p>
-            <a className="btn btn--accent btn--cta quest-page__btn" href="booking.html">Забронировать</a>
+            <Link className="btn btn--accent btn--cta quest-page__btn" to={questId ? `/quest/${questId}/booking` : ''}>Забронировать</Link>
           </div>
         </div>
       </main>

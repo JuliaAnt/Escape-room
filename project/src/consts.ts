@@ -87,9 +87,9 @@ export enum AppRoute {
 
 export enum APIRoute {
   Quests = '/v1/escape-room/quest',
-  SelectedOffer = '/hotels/{hotelId}',
-  Login = '/login',
-  Logout = '/logout',
+  SelectedOffer = '/v1/escape-room/quest/{questId}',
+  Login = '/v1/escape-room/login',
+  Logout = '/v1/escape-room/logout',
   Comments = '/comments/1',
   Favorites = '/favorite',
 }
@@ -97,6 +97,12 @@ export enum APIRoute {
 export enum NameSpace {
   User = 'USER',
   QuestsData = 'QUESTS_DATA',
-  CurrentOfferData = 'CURRENT_OFFER_DATA',
+  Booking = 'BOOKING',
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
 }
 
