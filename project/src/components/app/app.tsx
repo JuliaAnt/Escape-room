@@ -4,6 +4,8 @@ import MainPage from '../../pages/main-page/main-page';
 import QuestPage from '../../pages/quest-page/quest-page';
 import BookingPage from '../../pages/booking-page/booking-page';
 import PrivateRouteBooking from '../private-route-booking/private-route-booking';
+import PrivateRouteLogin from '../private-route-login/private-route-login';
+import LoginPage from '../../pages/login-page/login-page';
 
 function App(): JSX.Element {
   return (
@@ -16,6 +18,12 @@ function App(): JSX.Element {
             <PrivateRouteBooking>
               <BookingPage />
             </PrivateRouteBooking>
+          }
+          />
+          <Route path={AppRoute.Login} element={
+            <PrivateRouteLogin>
+              <LoginPage />
+            </PrivateRouteLogin>
           }
           />
         </Route>

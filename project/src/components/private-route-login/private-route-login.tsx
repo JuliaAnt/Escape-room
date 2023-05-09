@@ -3,17 +3,17 @@ import { AppRoute, AuthorizationStatus } from '../../consts';
 import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
 import { useAppSelector } from '../../hooks/redux-hooks';
 
-type PrivateRouteBookingProps = {
+type PrivateRouteLoginProps = {
   children: JSX.Element;
 }
 
-function PrivateRouteBooking(props: PrivateRouteBookingProps): JSX.Element {
+function PrivateRouteLogin(props: PrivateRouteLoginProps): JSX.Element {
   const { children } = props;
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
-    authorizationStatus === AuthorizationStatus.Auth ? children : <Navigate to={AppRoute.Login} />
+    authorizationStatus === AuthorizationStatus.NoAuth ? children : <Navigate to={AppRoute.Main} />
   );
 }
 
-export default PrivateRouteBooking;
+export default PrivateRouteLogin;
