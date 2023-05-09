@@ -87,11 +87,10 @@ export enum AppRoute {
 
 export enum APIRoute {
   Quests = '/v1/escape-room/quest',
-  SelectedOffer = '/v1/escape-room/quest/{questId}',
+  SelectedQuest = '/v1/escape-room/quest/{questId}',
   Login = '/v1/escape-room/login',
   Logout = '/v1/escape-room/logout',
-  Comments = '/comments/1',
-  Favorites = '/favorite',
+  BookedQuests = '/v1/escape-room/reservation',
 }
 
 export enum NameSpace {

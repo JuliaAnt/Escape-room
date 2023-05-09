@@ -39,7 +39,7 @@ function MainPage(): JSX.Element {
             </form>
           </div>
           <h2 className="title visually-hidden">Выберите квест</h2>
-          <QuestCardGrid questCards={questCards} />
+          <QuestCardGrid questCards={questCards} isVisible={false} />
         </div>
       </main>
       <Footer />

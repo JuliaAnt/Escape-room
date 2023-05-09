@@ -7,6 +7,8 @@ import PrivateRouteBooking from '../private-route-booking/private-route-booking'
 import PrivateRouteLogin from '../private-route-login/private-route-login';
 import LoginPage from '../../pages/login-page/login-page';
 import ContactsPage from '../../pages/contacts-page/contacts-page';
+import PrivateRouteBookedQuests from '../private-route-booked-quests/private-route-booked-quests';
+import MyQuestsPage from '../../pages/my-quests-page/my-quests-page';
 
 function App(): JSX.Element {
   return (
@@ -28,6 +30,12 @@ function App(): JSX.Element {
           }
           />
           <Route path={AppRoute.Contact} element={<ContactsPage />} />
+          <Route path={AppRoute.MyQuests} element={
+            <PrivateRouteBookedQuests>
+              <MyQuestsPage />
+            </PrivateRouteBookedQuests>
+          }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

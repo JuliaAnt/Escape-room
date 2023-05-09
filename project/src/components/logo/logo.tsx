@@ -53,7 +53,7 @@ function Logo(): JSX.Element {
               <Link className="link" to={AppRoute.Contact}>Контакты</Link>
             </li>
             <li className="main-nav__item">
-              <a className="link" href="my-quests.html">Мои бронирования</a>
+              <Link className="link" to={AppRoute.MyQuests}>Мои бронирования</Link>
             </li>
           </ul>
         </nav>
