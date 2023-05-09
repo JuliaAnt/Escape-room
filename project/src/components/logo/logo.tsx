@@ -12,7 +12,7 @@ function Logo(): JSX.Element {
     return (
       <header className="header">
         <div className="container container--size-l">
-          <a className="logo header__logo" href="index.html" aria-label="Перейти на Главную">
+          <a className="logo header__logo" href={AppRoute.Main} aria-label="Перейти на Главную">
             <svg width="134" height="52" aria-hidden="true">
               <use xlinkHref="#logo"></use>
             </svg>
@@ -23,7 +23,7 @@ function Logo(): JSX.Element {
                 <Link className="link not-disabled active" to={AppRoute.Main}>Квесты</Link>
               </li>
               <li className="main-nav__item">
-                <a className="link" href="contacts.html">Контакты</a>
+                <Link className="link" to={AppRoute.Contact}>Контакты</Link>
               </li>
             </ul>
           </nav>
@@ -39,18 +39,18 @@ function Logo(): JSX.Element {
   return (
     <header className="header">
       <div className="container container--size-l">
-        <span className="logo header__logo">
+        <a className="logo header__logo" href={AppRoute.Main} aria-label="Перейти на Главную">
           <svg width="134" height="52" aria-hidden="true">
             <use xlinkHref="#logo"></use>
           </svg>
-        </span>
+        </a>
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <Link className="link" to="/">Квесты</Link>
+              <Link className="link" to={AppRoute.Main}>Квесты</Link>
             </li>
             <li className="main-nav__item">
-              <a className="link" href="contacts.html">Контакты</a>
+              <Link className="link" to={AppRoute.Contact}>Контакты</Link>
             </li>
             <li className="main-nav__item">
               <a className="link" href="my-quests.html">Мои бронирования</a>

@@ -6,6 +6,7 @@ import BookingPage from '../../pages/booking-page/booking-page';
 import PrivateRouteBooking from '../private-route-booking/private-route-booking';
 import PrivateRouteLogin from '../private-route-login/private-route-login';
 import LoginPage from '../../pages/login-page/login-page';
+import ContactsPage from '../../pages/contacts-page/contacts-page';
 
 function App(): JSX.Element {
   return (
@@ -26,6 +27,7 @@ function App(): JSX.Element {
             </PrivateRouteLogin>
           }
           />
+          <Route path={AppRoute.Contact} element={<ContactsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
