@@ -1,7 +1,41 @@
+import { useEffect } from 'react';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { getBookingInfo, getSelectedBookingPoint } from '../../store/booking-process/booking-process-selectors';
+import { fetchBookingInfoAction } from '../../store/api-actions';
+import { useParams } from 'react-router-dom';
+import { getSelectedQuest } from '../../store/selectors';
+import Map from '../../components/map/map';
+import { CITY, MAP_SIZE } from '../../consts';
+import BookingTimeList from '../../components/booking-time-list/booking-time-list';
 
 function BookingPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const { id: questId } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    if (questId) {
+      dispatch(fetchBookingInfoAction(questId));
+    }
+  }, [questId, dispatch]);
+
+  const bookingInfo = useAppSelector(getBookingInfo);
+  const selectedQuest = useAppSelector(getSelectedQuest);
+  let selectedBookingPoint = useAppSelector(getSelectedBookingPoint);
+
+  if (selectedBookingPoint === null) {
+    selectedBookingPoint = bookingInfo[0];
+  }
+
+  // eslint-disable-next-line no-console
+  console.log(selectedBookingPoint);
+
+  const address = selectedBookingPoint?.location.address;
+  const today = selectedBookingPoint?.slots.today;
+  const tomorrow = selectedBookingPoint?.slots.tomorrow;
+  const title = selectedQuest?.title;
+
   return (
     <>
       <Logo />
@@ -15,14 +49,16 @@ function BookingPage(): JSX.Element {
           <div className="page-content__title-wrapper">
             <h1 className="subtitle subtitle--size-l page-content__subtitle">Бронирование квеста
             </h1>
-            <p className="title title--size-m title--uppercase page-content__title">Маньяк</p>
+            <p className="title title--size-m title--uppercase page-content__title">{title}</p>
           </div>
           <div className="page-content__item">
             <div className="booking-map">
               <div className="map">
-                <div className="map__container"></div>
+                <div className="map__container">
+                  <Map points={bookingInfo} city={CITY} selectedPoint={selectedBookingPoint} size={MAP_SIZE.boolingPage} />
+                </div>
               </div>
-              <p className="booking-map__address">Вы&nbsp;выбрали: наб. реки Карповки&nbsp;5, лит&nbsp;П, м. Петроградская</p>
+              <p className="booking-map__address">{`Вы выбрали: ${address}`}</p>
             </div>
           </div>
           <form className="booking-form" action="https://echo.htmlacademy.ru/" method="post">
@@ -30,43 +66,11 @@ function BookingPage(): JSX.Element {
               <legend className="visually-hidden">Выбор даты и времени</legend>
               <fieldset className="booking-form__date-section">
                 <legend className="booking-form__date-title">Сегодня</legend>
-                <div className="booking-form__date-inner-wrapper">
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="today9h45m" name="date" required value="today9h45m" /><span className="custom-radio__label">9:45</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="today15h00m" name="date" checked required value="today15h00m" /><span className="custom-radio__label">15:00</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="today17h30m" name="date" required value="today17h30m" /><span className="custom-radio__label">17:30</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="today19h30m" name="date" required value="today19h30m" disabled /><span className="custom-radio__label">19:30</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="today21h30m" name="date" required value="today21h30m" /><span className="custom-radio__label">21:30</span>
-                  </label>
-                </div>
+                <BookingTimeList date={'today'} timeList={today} />
               </fieldset>
               <fieldset className="booking-form__date-section">
                 <legend className="booking-form__date-title">Завтра</legend>
-                <div className="booking-form__date-inner-wrapper">
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="tomorrow11h00m" name="date" required value="tomorrow11h00m" /><span className="custom-radio__label">11:00</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="tomorrow15h00m" name="date" required value="tomorrow15h00m" disabled /><span className="custom-radio__label">15:00</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="tomorrow17h30m" name="date" required value="tomorrow17h30m" disabled /><span className="custom-radio__label">17:30</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="tomorrow19h45m" name="date" required value="tomorrow19h45m" /><span className="custom-radio__label">19:45</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input type="radio" id="tomorrow21h30m" name="date" required value="tomorrow21h30m" /><span className="custom-radio__label">21:30</span>
-                  </label>
-                </div>
+                <BookingTimeList date={'tomorrow'} timeList={tomorrow} />
               </fieldset>
             </fieldset>
             <fieldset className="booking-form__section">

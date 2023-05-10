@@ -15,18 +15,10 @@ function QuestCard({ questCard, isVisible }: QuestCardProps): JSX.Element {
   const bookedQuests = useAppSelector(getBookedQuests);
   const bookedQuest: BookedQuest | undefined = bookedQuests.find((questToFind) => questToFind.quest.id === id);
 
-  // const {date, time, location, peopleCount} = bookedQuest;
-
-  let date = '';
-  let time = '';
-  let address = '';
-  let peopleCount = 0;
-  if (bookedQuest) {
-    date = bookedQuest.date;
-    time = bookedQuest.time;
-    address = bookedQuest.location.address;
-    peopleCount = bookedQuest.peopleCount;
-  }
+  const date = bookedQuest?.date || '';
+  const time = bookedQuest?.time || '';
+  const address = bookedQuest?.location.address || '';
+  const peopleCount = bookedQuest?.peopleCount || 0;
 
   return (
     <div key={id} className="quest-card">

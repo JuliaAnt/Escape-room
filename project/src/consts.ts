@@ -91,6 +91,7 @@ export enum APIRoute {
   Login = '/v1/escape-room/login',
   Logout = '/v1/escape-room/logout',
   BookedQuests = '/v1/escape-room/reservation',
+  BookingInfo = '/v1/escape-room/quest/{questId}/booking'
 }
 
 export enum NameSpace {
@@ -104,4 +105,30 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const CITY = {
+  title: 'Санкт-Петербург',
+  lat: 59.93863,
+  lng: 30.31413,
+  zoom: 10,
+};
+
+export const URL_MARKER_DEFAULT =
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+
+export const URL_MARKER_CURRENT =
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+
+export const MAP_SIZE = {
+  boolingPage: {
+    height: '529px',
+    width: '890px',
+    margin: 'auto',
+  },
+  contactsPage: {
+    height: '579px',
+    width: '1144px',
+    margin: '0 auto 50px',
+  }
+};
 

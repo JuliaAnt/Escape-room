@@ -7,6 +7,7 @@ import { QuestType } from '../types/quest';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData, UserData } from '../types/auth-data';
 import { BookedQuest } from '../types/booked-quest';
+import { BookingInfo } from '../types/booking-info';
 
 export const fetchQuestsAction = createAsyncThunk<QuestCardType[], undefined, {
   dispatch: AppDispatch;
@@ -76,6 +77,18 @@ export const fetchBookedQuestsAction = createAsyncThunk<BookedQuest[], undefined
   'fetchBookedQuests',
   async (_arg, { extra: api }) => {
     const { data } = await api.get<BookedQuest[]>(APIRoute.BookedQuests);
+    return data;
+  }
+);
+
+export const fetchBookingInfoAction = createAsyncThunk<BookingInfo[], string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchBookingInfo',
+  async (id, { extra: api }) => {
+    const { data } = await api.get<BookingInfo[]>(`/v1/escape-room/quest/${id}/booking`);
     return data;
   }
 );
