@@ -9,12 +9,8 @@ import LoginPage from '../../pages/login-page/login-page';
 import ContactsPage from '../../pages/contacts-page/contacts-page';
 import PrivateRouteBookedQuests from '../private-route-booked-quests/private-route-booked-quests';
 import MyQuestsPage from '../../pages/my-quests-page/my-quests-page';
-import { checkAuthAction } from '../../store/api-actions';
-import { store } from '../../store/index';
 
 function App(): JSX.Element {
-  store.dispatch(checkAuthAction());
-
   return (
     <BrowserRouter>
       <Routes>

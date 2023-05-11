@@ -1,4 +1,5 @@
-import { useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { cancelBookingAction } from '../../store/api-actions';
 import { getBookedQuests } from '../../store/booking-process/booking-process-selectors';
 import { BookedQuest } from '../../types/booked-quest';
 import { QuestCardType } from '../../types/quest-card';
@@ -10,6 +11,7 @@ type QuestCardProps = {
 }
 
 function QuestCard({ questCard, isVisible }: QuestCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const { title, previewImg, previewImgWebp, level, peopleMinMax, id } = questCard;
 
   const bookedQuests = useAppSelector(getBookedQuests);
@@ -25,6 +27,14 @@ function QuestCard({ questCard, isVisible }: QuestCardProps): JSX.Element {
   const time = bookedQuest?.time || '';
   const address = bookedQuest?.location.address || '';
   const peopleCount = bookedQuest?.peopleCount || 0;
+
+  const onCancelBooking = () => {
+    if (bookedQuest) {
+      dispatch(cancelBookingAction(bookedQuest.id));
+    }
+  };
+  // eslint-disable-next-line no-console
+  console.log(bookedQuests);
 
   return (
     <div key={id} className="quest-card">
@@ -51,7 +61,7 @@ function QuestCard({ questCard, isVisible }: QuestCardProps): JSX.Element {
             </svg>{level}
           </li>
         </ul>
-        {isVisible && bookedQuest ? <button className="btn btn--accent btn--secondary quest-card__btn" type="button">Отменить</button> : ''}
+        {isVisible && bookedQuest ? <button className="btn btn--accent btn--secondary quest-card__btn" type="button" onClick={onCancelBooking}>Отменить</button> : ''}
       </div>
     </div>
   );

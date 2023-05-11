@@ -112,3 +112,15 @@ export const sendBookingAction = createAsyncThunk<void, SendBookingProps, {
     }
   }
 );
+
+export const cancelBookingAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'cancelBooking',
+  async (reservationId, { dispatch, extra: api }) => {
+    await api.delete(`/v1/escape-room/reservation/${reservationId}`);
+    dispatch(fetchBookedQuestsAction());
+  }
+);
