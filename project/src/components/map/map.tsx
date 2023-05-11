@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import 'leaflet/dist/leaflet.css';
-import { Icon, Marker } from 'leaflet';
+import { Icon, LeafletMouseEvent, Marker } from 'leaflet';
 import { BookingInfo } from '../../types/booking-info';
 import { CityCoords } from '../../types/city-coords';
 import useMap from '../../hooks/useMap';
@@ -15,6 +15,7 @@ type MapProps = {
   };
   city: CityCoords;
   selectedPoint: BookingInfo;
+  onPointChange: (point: BookingInfo) => void;
 }
 
 const defaultCustomIcon = new Icon({
@@ -29,14 +30,16 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-function Map({ points, size, city, selectedPoint }: MapProps): JSX.Element {
+function Map({ points, size, city, selectedPoint, onPointChange }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });
 
-  // const onClickHandler = () => {
-  //   // eslint-disable-next-line no-console
-  //   console.log('Hay!');
-  // };
+  const onClickHandler = (evt: LeafletMouseEvent) => {
+    const point = points.find((pointToFind) => evt.latlng.lat === pointToFind.location.coords[0] && evt.latlng.lng === pointToFind.location.coords[1]);
+    if (point) {
+      onPointChange(point);
+    }
+  };
 
   useEffect(() => {
     if (map) {
@@ -52,8 +55,7 @@ function Map({ points, size, city, selectedPoint }: MapProps): JSX.Element {
             : defaultCustomIcon
         )
           .addTo(map);
-
-        // map.on('click', onClickHandler);
+        marker.on('click', onClickHandler);
       });
     }
   }, [map, selectedPoint, points]);

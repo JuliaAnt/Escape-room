@@ -9,6 +9,8 @@ import { getSelectedQuest } from '../../store/selectors';
 import Map from '../../components/map/map';
 import { CITY, MAP_SIZE } from '../../consts';
 import BookingTimeList from '../../components/booking-time-list/booking-time-list';
+import { changeBookingPointAction } from '../../store/booking-process/booking-process-slice';
+import { BookingInfo } from '../../types/booking-info';
 
 function BookingPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -28,13 +30,15 @@ function BookingPage(): JSX.Element {
     selectedBookingPoint = bookingInfo[0];
   }
 
-  // eslint-disable-next-line no-console
-  console.log(selectedBookingPoint);
-
   const address = selectedBookingPoint?.location.address;
   const today = selectedBookingPoint?.slots.today;
   const tomorrow = selectedBookingPoint?.slots.tomorrow;
   const title = selectedQuest?.title;
+
+  const onSelectedBookingPointChange = (point: BookingInfo) => dispatch(changeBookingPointAction(point));
+
+  // eslint-disable-next-line no-console
+  console.log(bookingInfo);
 
   return (
     <>
@@ -55,7 +59,7 @@ function BookingPage(): JSX.Element {
             <div className="booking-map">
               <div className="map">
                 <div className="map__container">
-                  <Map points={bookingInfo} city={CITY} selectedPoint={selectedBookingPoint} size={MAP_SIZE.boolingPage} />
+                  <Map points={bookingInfo} city={CITY} selectedPoint={selectedBookingPoint} size={MAP_SIZE.boolingPage} onPointChange={onSelectedBookingPointChange} />
                 </div>
               </div>
               <p className="booking-map__address">{`Вы выбрали: ${address}`}</p>

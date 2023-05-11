@@ -9,7 +9,7 @@ type BookingTimeListProps = {
 function BookingTimeList({ timeList, date }: BookingTimeListProps): JSX.Element {
   return (
     <div className="booking-form__date-inner-wrapper">
-      {timeList.map((timeItem) => <BookingTimeInput key={timeItem.time} timeItem={timeItem} date={date} />)}
+      {timeList?.map((timeItem) => <BookingTimeInput key={timeItem.time} timeItem={timeItem} date={date} />)}
     </div>
   );
 }
