@@ -7,15 +7,19 @@ import useMap from '../../hooks/useMap';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
 
 type MapProps = {
-  points: BookingInfo[];
+  points: BookingInfo[] | null;
   size: {
     height: string;
     width: string;
     margin: string;
   };
   city: CityCoords;
-  selectedPoint: BookingInfo;
-  onPointChange: (point: BookingInfo) => void;
+  selectedPoint: BookingInfo | null;
+  onPointChange: ((point: BookingInfo) => void) | null;
+  office: {
+    lat: number;
+    lng: number;
+  } | null;
 }
 
 const defaultCustomIcon = new Icon({
@@ -30,20 +34,29 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-function Map({ points, size, city, selectedPoint, onPointChange }: MapProps): JSX.Element {
+function Map({ points, size, city, selectedPoint, office, onPointChange }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });
 
   const onClickHandler = (evt: LeafletMouseEvent) => {
-    const point = points.find((pointToFind) => evt.latlng.lat === pointToFind.location.coords[0] && evt.latlng.lng === pointToFind.location.coords[1]);
-    if (point) {
+    const point = points?.find((pointToFind) => evt.latlng.lat === pointToFind.location.coords[0] && evt.latlng.lng === pointToFind.location.coords[1]);
+    if (point && onPointChange) {
       onPointChange(point);
     }
   };
 
   useEffect(() => {
     if (map) {
-      points.forEach((point) => {
+      if (office) {
+        const marker = new Marker({
+          lat: office.lat,
+          lng: office.lng,
+        });
+
+        marker.setIcon(currentCustomIcon)
+          .addTo(map);
+      }
+      points?.forEach((point) => {
         const marker = new Marker({
           lat: point.location.coords[0],
           lng: point.location.coords[1],

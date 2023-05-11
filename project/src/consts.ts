@@ -132,3 +132,7 @@ export const MAP_SIZE = {
   }
 };
 
+export const OFFICE_COORDS = {
+  lat: 59.968456,
+  lng: 30.31759,
+};

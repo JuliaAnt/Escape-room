@@ -65,7 +65,7 @@ function LoginPage(): JSX.Element {
                   </svg>
                 </span>
                 <span className="custom-checkbox__label">Я&nbsp;согласен с
-                  <a className="link link--active-silver link--underlined" href="#">правилами обработки персональных данных</a>&nbsp;и пользовательским соглашением
+                  <a className="link link--active-silver link--underlined" href="#"> правилами обработки персональных данных</a>&nbsp;и пользовательским соглашением
                 </span>
               </label>
             </form>

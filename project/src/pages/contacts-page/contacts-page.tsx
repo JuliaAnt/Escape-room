@@ -1,5 +1,7 @@
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
+import Map from '../../components/map/map';
+import { CITY, MAP_SIZE, OFFICE_COORDS } from '../../consts';
 
 function ContactsPage(): JSX.Element {
   return (
@@ -23,7 +25,7 @@ function ContactsPage(): JSX.Element {
               <div className="contacts__item">
                 <dt className="contacts__dt">Адрес</dt>
                 <dd className="contacts__dd">
-                  <address className="contacts__address">Санкт-Петербург,<br/> Набережная реки Карповка, д 5П</address>
+                  <address className="contacts__address">Санкт-Петербург,<br /> Набережная реки Карповка, д 5П</address>
                 </dd>
               </div>
               <div className="contacts__item">
@@ -45,7 +47,9 @@ function ContactsPage(): JSX.Element {
             </dl>
             <div className="contacts__map">
               <div className="map">
-                <div className="map__container"></div>
+                <div className="map__container">
+                  <Map points={null} city={CITY} selectedPoint={null} size={MAP_SIZE.boolingPage} onPointChange={null} office={OFFICE_COORDS} />
+                </div>
               </div>
             </div>
           </div>

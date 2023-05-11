@@ -59,7 +59,7 @@ function BookingPage(): JSX.Element {
             <div className="booking-map">
               <div className="map">
                 <div className="map__container">
-                  <Map points={bookingInfo} city={CITY} selectedPoint={selectedBookingPoint} size={MAP_SIZE.boolingPage} onPointChange={onSelectedBookingPointChange} />
+                  <Map points={bookingInfo} city={CITY} selectedPoint={selectedBookingPoint} size={MAP_SIZE.boolingPage} office={null} onPointChange={onSelectedBookingPointChange} />
                 </div>
               </div>
               <p className="booking-map__address">{`Вы выбрали: ${address}`}</p>
