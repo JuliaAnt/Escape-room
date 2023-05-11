@@ -15,7 +15,13 @@ function QuestCard({ questCard, isVisible }: QuestCardProps): JSX.Element {
   const bookedQuests = useAppSelector(getBookedQuests);
   const bookedQuest: BookedQuest | undefined = bookedQuests.find((questToFind) => questToFind.quest.id === id);
 
-  const date = bookedQuest?.date || '';
+  let date = '';
+  if (bookedQuest && bookedQuest.date === 'today') {
+    date = 'Сегодня';
+  } else if (bookedQuest && bookedQuest.date === 'tomorrow') {
+    date = 'Завтра';
+  }
+
   const time = bookedQuest?.time || '';
   const address = bookedQuest?.location.address || '';
   const peopleCount = bookedQuest?.peopleCount || 0;
@@ -31,7 +37,7 @@ function QuestCard({ questCard, isVisible }: QuestCardProps): JSX.Element {
       <div className="quest-card__content">
         <div className="quest-card__info-wrapper">
           <Link className="quest-card__link" to={`/quest/${id}`}>{title}</Link>
-          {isVisible && bookedQuest ? <span className="quest-card__info">{`[${date},&nbsp;${time}. ${address}]`}</span> : ''}
+          {isVisible && bookedQuest ? <span className="quest-card__info">{`[${date}, ${time}. ${address}]`}</span> : ''}
         </div>
         <ul className="tags quest-card__tags">
           <li className="tags__item">

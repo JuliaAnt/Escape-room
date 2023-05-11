@@ -8,6 +8,7 @@ import { dropToken, saveToken } from '../services/token';
 import { AuthData, UserData } from '../types/auth-data';
 import { BookedQuest } from '../types/booked-quest';
 import { BookingInfo } from '../types/booking-info';
+import { CurrentBooking } from '../types/current-booking';
 
 export const fetchQuestsAction = createAsyncThunk<QuestCardType[], undefined, {
   dispatch: AppDispatch;
@@ -90,5 +91,24 @@ export const fetchBookingInfoAction = createAsyncThunk<BookingInfo[], string, {
   async (id, { extra: api }) => {
     const { data } = await api.get<BookingInfo[]>(`/v1/escape-room/quest/${id}/booking`);
     return data;
+  }
+);
+
+type SendBookingProps = CurrentBooking & { questId: string; onSuccess(): void; onError(): void };
+
+export const sendBookingAction = createAsyncThunk<void, SendBookingProps, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'sendBooking',
+  async ({ questId, date, time, peopleCount, contactPerson, placeId, phone, withChildren, onSuccess, onError }, { extra: api }) => {
+    try {
+      await api.post<CurrentBooking>(`/v1/escape-room/quest/${questId}/booking`, { date, time, peopleCount, contactPerson, placeId, phone, withChildren });
+      onSuccess();
+    }
+    catch (e) {
+      onError();
+    }
   }
 );

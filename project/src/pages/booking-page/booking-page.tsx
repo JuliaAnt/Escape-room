@@ -8,9 +8,10 @@ import { useParams } from 'react-router-dom';
 import { getSelectedQuest } from '../../store/selectors';
 import Map from '../../components/map/map';
 import { CITY, MAP_SIZE } from '../../consts';
-import BookingTimeList from '../../components/booking-time-list/booking-time-list';
+// import BookingTimeList from '../../components/booking-time-list/booking-time-list';
 import { changeBookingPointAction } from '../../store/booking-process/booking-process-slice';
 import { BookingInfo } from '../../types/booking-info';
+import BookingForm from '../../components/booking-form/booking-form';
 
 function BookingPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -31,14 +32,13 @@ function BookingPage(): JSX.Element {
   }
 
   const address = selectedBookingPoint?.location.address;
-  const today = selectedBookingPoint?.slots.today;
-  const tomorrow = selectedBookingPoint?.slots.tomorrow;
   const title = selectedQuest?.title;
 
   const onSelectedBookingPointChange = (point: BookingInfo) => dispatch(changeBookingPointAction(point));
-
   // eslint-disable-next-line no-console
   console.log(bookingInfo);
+  // eslint-disable-next-line no-console
+  console.log(selectedBookingPoint);
 
   return (
     <>
@@ -65,7 +65,8 @@ function BookingPage(): JSX.Element {
               <p className="booking-map__address">{`Вы выбрали: ${address}`}</p>
             </div>
           </div>
-          <form className="booking-form" action="https://echo.htmlacademy.ru/" method="post">
+          {!!questId && <BookingForm selectedBookingPoint={selectedBookingPoint} questId={questId} />}
+          {/* <form className="booking-form" action="https://echo.htmlacademy.ru/" method="post">
             <fieldset className="booking-form__section">
               <legend className="visually-hidden">Выбор даты и времени</legend>
               <fieldset className="booking-form__date-section">
@@ -113,7 +114,7 @@ function BookingPage(): JSX.Element {
                 <a className="link link--active-silver link--underlined" href="#">правилами обработки персональных данных</a>&nbsp;и пользовательским соглашением
               </span>
             </label>
-          </form>
+          </form> */}
         </div>
       </main >
       <Footer />

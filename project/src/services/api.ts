@@ -1,5 +1,15 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import { StatusCodes } from 'http-status-codes';
+import { toast } from 'react-toastify';
 import { getToken } from './token';
+
+const StatusCodeMapping: Record<number, boolean> = {
+  [StatusCodes.BAD_REQUEST]: true,
+  [StatusCodes.UNAUTHORIZED]: true,
+  [StatusCodes.NOT_FOUND]: true
+};
+
+const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
 
 const BASE_URL = 'https://grading.design.pages.academy';
 const TIMEOUT = 5000;
@@ -22,16 +32,15 @@ export const createApi = (): AxiosInstance => {
     }
   );
 
-  // api.interceptors.response.use(
-  //   (response) => response,
-  //   (error: AxiosError<{ error: string }>) => {
-  //     if (error.response && shouldDisplayError(error.response)) {
-  //       toast.warn(error.response.data.error);
-  //     }
+  api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError<{ message: string }>) => {
+      if (error.response && shouldDisplayError(error.response)) {
+        toast.warn(error.response.data.message);
+      }
 
-  //     throw error;
-  //   }
-  // );
-
+      throw error;
+    }
+  );
   return api;
 };
