@@ -1,4 +1,4 @@
-import { LevelFilter, GenreFilter } from './types/filters';
+import { LevelFilter, GenreFilter, FilterType, FieldNameToFilter, SelectedFilter } from './types/filters';
 
 export const GENRE_FILTERS: GenreFilter[] = [
   {
@@ -12,7 +12,7 @@ export const GENRE_FILTERS: GenreFilter[] = [
   },
   {
     text: 'Приключения',
-    type: 'adventure',
+    type: 'adventures',
     icon: {
       name: 'icon-adventure',
       width: '36',
@@ -48,7 +48,7 @@ export const GENRE_FILTERS: GenreFilter[] = [
   },
   {
     text: 'Sci-fi',
-    type: 'sciFi',
+    type: 'sci-fi',
     icon: {
       name: 'icon-sci-fi',
       width: '28',
@@ -67,7 +67,7 @@ export const LEVEL_FILTERS: LevelFilter[] = [
     text: 'Лёгкий',
   },
   {
-    type: 'middle',
+    type: 'medium',
     text: 'Средний',
   },
   {
@@ -136,3 +136,19 @@ export const OFFICE_COORDS = {
   lat: 59.968456,
   lng: 30.31759,
 };
+
+export const FILTER_MAP: Record<FilterType, FieldNameToFilter> = {
+  genreFilter: 'type',
+  levelFilter: 'level',
+};
+
+export const INITIAL_FILTER: SelectedFilter[] = [
+  {
+    filterType: 'genreFilter',
+    filterValue: 'all',
+  },
+  {
+    filterType: 'levelFilter',
+    filterValue: 'any',
+  }
+];

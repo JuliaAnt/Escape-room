@@ -5,10 +5,9 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { getBookingInfo, getSelectedBookingPoint } from '../../store/booking-process/booking-process-selectors';
 import { fetchBookingInfoAction } from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
-import { getSelectedQuest } from '../../store/selectors';
+import { getSelectedQuest } from '../../store/quests-data/quests-data-selectors';
 import Map from '../../components/map/map';
 import { CITY, MAP_SIZE } from '../../consts';
-// import BookingTimeList from '../../components/booking-time-list/booking-time-list';
 import { changeBookingPointAction } from '../../store/booking-process/booking-process-slice';
 import { BookingInfo } from '../../types/booking-info';
 import BookingForm from '../../components/booking-form/booking-form';
@@ -35,10 +34,6 @@ function BookingPage(): JSX.Element {
   const title = selectedQuest?.title;
 
   const onSelectedBookingPointChange = (point: BookingInfo) => dispatch(changeBookingPointAction(point));
-  // eslint-disable-next-line no-console
-  console.log(bookingInfo);
-  // eslint-disable-next-line no-console
-  console.log(selectedBookingPoint);
 
   return (
     <>

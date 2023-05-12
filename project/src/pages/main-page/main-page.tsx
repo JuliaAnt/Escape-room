@@ -3,18 +3,21 @@ import LevelFilterList from '../../components/level-filter-list/level-filter-lis
 import Logo from '../../components/logo/logo';
 import GenreFilterList from '../../components/genre-filter-list/genre-filter-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { getQuests } from '../../store/selectors';
+import { getFilteredQuestCards } from '../../store/quests-data/quests-data-selectors';
 import { fetchQuestsAction } from '../../store/api-actions';
 import QuestCardGrid from '../../components/quest-card-grid/quest-card-grid';
 import Footer from '../../components/footer/footer';
 
 function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const questCards = useAppSelector(getQuests);
+  const questCards = useAppSelector(getFilteredQuestCards);
 
   useEffect(() => {
     dispatch(fetchQuestsAction());
   }, [dispatch]);
+
+  // eslint-disable-next-line no-console
+  console.log(questCards);
 
   return (
     <>

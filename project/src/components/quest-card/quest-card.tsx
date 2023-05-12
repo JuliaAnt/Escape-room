@@ -33,8 +33,6 @@ function QuestCard({ questCard, isVisible }: QuestCardProps): JSX.Element {
       dispatch(cancelBookingAction(bookedQuest.id));
     }
   };
-  // eslint-disable-next-line no-console
-  console.log(bookedQuests);
 
   return (
     <div key={id} className="quest-card">

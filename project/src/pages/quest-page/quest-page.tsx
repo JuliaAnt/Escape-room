@@ -4,7 +4,7 @@ import { GENRE_FILTERS, LEVEL_FILTERS } from '../../consts';
 import { useEffect } from 'react';
 import { store } from '../../store/index';
 import { fetchSelectedQuestAction } from '../../store/api-actions';
-import { getSelectedQuest } from '../../store/selectors';
+import { getSelectedQuest } from '../../store/quests-data/quests-data-selectors';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import Footer from '../../components/footer/footer';
 
