@@ -6,6 +6,7 @@ import { useAppDispatch } from '../../hooks/redux-hooks';
 import { sendBookingAction } from '../../store/api-actions';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../consts';
+import { changeBookingPointAction } from '../../store/booking-process/booking-process-slice';
 
 type BookingFormProps = {
   selectedBookingPoint: BookingInfo;
@@ -45,7 +46,10 @@ function BookingForm({ selectedBookingPoint, questId }: BookingFormProps): JSX.E
   const onSubmit = (currentBooking: CurrentBooking & { questId: string }) => {
     dispatch(sendBookingAction({
       ...currentBooking,
-      onSuccess: () => navigate(AppRoute.MyQuests),
+      onSuccess: () => {
+        navigate(AppRoute.MyQuests);
+        dispatch(changeBookingPointAction(null));
+      },
       // eslint-disable-next-line no-console
       onError: () => console.log('Hey!'),
     }));
@@ -89,7 +93,7 @@ function BookingForm({ selectedBookingPoint, questId }: BookingFormProps): JSX.E
             placeholder="Имя"
             required
             pattern="[А-Яа-яЁёA-Za-z'- ]{1,}"
-            onChange={(e) => setFormData((state) => ({ ...state, contactPerson: e.target.value }))}
+            onChange={(evt) => setFormData((state) => ({ ...state, contactPerson: evt.target.value }))}
           />
         </div>
         <div className="custom-input booking-form__input">
@@ -101,7 +105,7 @@ function BookingForm({ selectedBookingPoint, questId }: BookingFormProps): JSX.E
             placeholder="Телефон"
             required
             pattern="[0-9]{10,}"
-            onChange={(e) => setFormData((state) => ({ ...state, phone: e.target.value }))}
+            onChange={(evt) => setFormData((state) => ({ ...state, phone: evt.target.value }))}
           />
         </div>
         <div className="custom-input booking-form__input">
@@ -112,7 +116,7 @@ function BookingForm({ selectedBookingPoint, questId }: BookingFormProps): JSX.E
             name="person"
             placeholder="Количество участников"
             required
-            onChange={(e) => setFormData((state) => ({ ...state, peopleCount: +e.target.value }))}
+            onChange={(evt) => setFormData((state) => ({ ...state, peopleCount: +evt.target.value }))}
           />
         </div>
         <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--children">
@@ -120,7 +124,7 @@ function BookingForm({ selectedBookingPoint, questId }: BookingFormProps): JSX.E
             type="checkbox"
             id="children"
             name="children"
-            onChange={(e) => setFormData((state) => ({ ...state, withChildren: Boolean(e.target.value) }))}
+            onChange={(evt) => setFormData((state) => ({ ...state, withChildren: Boolean(evt.target.value) }))}
           />
           <span className="custom-checkbox__icon">
             <svg width="20" height="17" aria-hidden="true">

@@ -9,6 +9,7 @@ import LoginPage from '../../pages/login-page/login-page';
 import ContactsPage from '../../pages/contacts-page/contacts-page';
 import PrivateRouteBookedQuests from '../private-route-booked-quests/private-route-booked-quests';
 import MyQuestsPage from '../../pages/my-quests-page/my-quests-page';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
 
 function App(): JSX.Element {
   return (
@@ -37,6 +38,7 @@ function App(): JSX.Element {
           }
           />
         </Route>
+        <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

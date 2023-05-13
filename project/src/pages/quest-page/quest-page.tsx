@@ -5,10 +5,13 @@ import { useEffect } from 'react';
 import { store } from '../../store/index';
 import { fetchSelectedQuestAction } from '../../store/api-actions';
 import { getSelectedQuest } from '../../store/quests-data/quests-data-selectors';
-import { useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import Footer from '../../components/footer/footer';
+import NotFoundPage from '../not-found-page/not-found-page';
+import { changeBookingPointAction } from '../../store/booking-process/booking-process-slice';
 
 function QuestPage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const { id: questId } = useParams<{ id: string }>();
 
   useEffect(() => {
@@ -17,10 +20,18 @@ function QuestPage(): JSX.Element {
     }
   }, [questId]);
 
+  dispatch(changeBookingPointAction(null));
+
   const quest = useAppSelector(getSelectedQuest);
   const { title, type, previewImg, previewImgWebp, level, description, peopleMinMax, coverImg, coverImgWebp } = quest || {};
   const currentLevel = LEVEL_FILTERS.find((levelToFind) => levelToFind.type === level);
   const currentGenre = GENRE_FILTERS.find((genreToFind) => genreToFind.type === type);
+
+  if (!quest) {
+    return (
+      <NotFoundPage />
+    );
+  }
 
   return (
     <>

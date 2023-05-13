@@ -46,6 +46,9 @@ function Map({ points, size, city, selectedPoint, office, onPointChange }: MapPr
   };
 
   useEffect(() => {
+    const markerList = map?.getPane('markerPane');
+    markerList?.replaceChildren();
+
     if (map) {
       if (office) {
         const marker = new Marker({

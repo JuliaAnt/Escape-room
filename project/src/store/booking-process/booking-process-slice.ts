@@ -20,7 +20,7 @@ export const bookingProcess = createSlice({
   name: NameSpace.Booking,
   initialState,
   reducers: {
-    changeBookingPointAction: (state, action: PayloadAction<BookingInfo>) => {
+    changeBookingPointAction: (state, action: PayloadAction<BookingInfo | null>) => {
       state.selectedBookingPoint = action.payload;
     }
   },

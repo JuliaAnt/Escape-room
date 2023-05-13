@@ -107,7 +107,7 @@ export const sendBookingAction = createAsyncThunk<void, SendBookingProps, {
       await api.post<CurrentBooking>(`/v1/escape-room/quest/${questId}/booking`, { date, time, peopleCount, contactPerson, placeId, phone, withChildren });
       onSuccess();
     }
-    catch (e) {
+    catch (error) {
       onError();
     }
   }
