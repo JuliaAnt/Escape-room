@@ -3,9 +3,10 @@ import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import QuestCardGrid from '../../components/quest-card-grid/quest-card-grid';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { fetchBookedQuestsAction } from '../../store/api-actions';
+import { fetchBookedQuestsAction } from '../../store/actions/api-actions';
 import { getBookedQuests } from '../../store/booking-process/booking-process-selectors';
 import { QuestCardType } from '../../types/quest-card';
+import { PAGES_LIST } from '../../consts';
 
 function MyQuestsPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -16,12 +17,18 @@ function MyQuestsPage(): JSX.Element {
 
   const bookedQuests = useAppSelector(getBookedQuests);
 
+  // eslint-disable-next-line no-console
+  console.log(bookedQuests);
+
   const bookedRenderedQuests: QuestCardType[] = [];
   bookedQuests.map((bookedQuest) => bookedRenderedQuests.push(bookedQuest.quest));
 
+  // eslint-disable-next-line no-console
+  console.log(bookedRenderedQuests);
+
   return (
     <>
-      <Logo />
+      <Logo currentPage={PAGES_LIST.myQuestsPage} />
       <main className="page-content decorated-page">
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>

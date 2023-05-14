@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { QuestCardType } from '../types/quest-card';
-import { AppDispatch, State } from '../types/state';
+import { QuestCardType } from '../../types/quest-card';
+import { AppDispatch, State } from '../../types/state';
 import { AxiosInstance } from 'axios';
-import { APIRoute } from '../consts';
-import { QuestType } from '../types/quest';
-import { dropToken, saveToken } from '../services/token';
-import { AuthData, UserData } from '../types/auth-data';
-import { BookedQuest } from '../types/booked-quest';
-import { BookingInfo } from '../types/booking-info';
-import { CurrentBooking } from '../types/current-booking';
+import { APIRoute } from '../../consts';
+import { QuestType } from '../../types/quest';
+import { dropToken, saveToken } from '../../services/token';
+import { AuthData, UserData } from '../../types/auth-data';
+import { BookedQuest } from '../../types/booked-quest';
+import { BookingInfo } from '../../types/booking-info';
+import { CurrentBooking } from '../../types/current-booking';
 
 export const fetchQuestsAction = createAsyncThunk<QuestCardType[], undefined, {
   dispatch: AppDispatch;
@@ -29,7 +29,7 @@ export const fetchSelectedQuestAction = createAsyncThunk<QuestType, string, {
 }>(
   'fetchSelectedQuest',
   async (id, { extra: api }) => {
-    const { data } = await api.get<QuestType>(`/v1/escape-room/quest/${id}`);
+    const { data } = await api.get<QuestType>(`/quest/${id}`);
     return data;
   }
 );
@@ -89,7 +89,7 @@ export const fetchBookingInfoAction = createAsyncThunk<BookingInfo[], string, {
 }>(
   'fetchBookingInfo',
   async (id, { extra: api }) => {
-    const { data } = await api.get<BookingInfo[]>(`/v1/escape-room/quest/${id}/booking`);
+    const { data } = await api.get<BookingInfo[]>(`/quest/${id}/booking`);
     return data;
   }
 );
@@ -104,7 +104,7 @@ export const sendBookingAction = createAsyncThunk<void, SendBookingProps, {
   'sendBooking',
   async ({ questId, date, time, peopleCount, contactPerson, placeId, phone, withChildren, onSuccess, onError }, { extra: api }) => {
     try {
-      await api.post<CurrentBooking>(`/v1/escape-room/quest/${questId}/booking`, { date, time, peopleCount, contactPerson, placeId, phone, withChildren });
+      await api.post<CurrentBooking>(`/quest/${questId}/booking`, { date, time, peopleCount, contactPerson, placeId, phone, withChildren });
       onSuccess();
     }
     catch (error) {
@@ -120,7 +120,7 @@ export const cancelBookingAction = createAsyncThunk<void, string, {
 }>(
   'cancelBooking',
   async (reservationId, { dispatch, extra: api }) => {
-    await api.delete(`/v1/escape-room/reservation/${reservationId}`);
+    await api.delete(`/reservation/${reservationId}`);
     dispatch(fetchBookedQuestsAction());
   }
 );

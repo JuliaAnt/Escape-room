@@ -2,8 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import { GENRE_FILTERS, LEVEL_FILTERS } from '../../consts';
 import { useEffect } from 'react';
-import { store } from '../../store/index';
-import { fetchSelectedQuestAction } from '../../store/api-actions';
+import { fetchSelectedQuestAction } from '../../store/actions/api-actions';
 import { getSelectedQuest } from '../../store/quests-data/quests-data-selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import Footer from '../../components/footer/footer';
@@ -16,11 +15,14 @@ function QuestPage(): JSX.Element {
 
   useEffect(() => {
     if (questId) {
-      store.dispatch(fetchSelectedQuestAction(questId));
+      dispatch(fetchSelectedQuestAction(questId));
     }
-  }, [questId]);
+  }, [questId, dispatch]);
 
-  dispatch(changeBookingPointAction(null));
+  useEffect(() => {
+    dispatch(changeBookingPointAction(null));
+  }, [dispatch]);
+
 
   const quest = useAppSelector(getSelectedQuest);
   const { title, type, previewImg, previewImgWebp, level, description, peopleMinMax, coverImg, coverImgWebp } = quest || {};
@@ -35,7 +37,7 @@ function QuestPage(): JSX.Element {
 
   return (
     <>
-      <Logo />
+      <Logo currentPage={null} />
       <main className="decorated-page quest-page">
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>

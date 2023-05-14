@@ -86,12 +86,12 @@ export enum AppRoute {
 }
 
 export enum APIRoute {
-  Quests = '/v1/escape-room/quest',
-  SelectedQuest = '/v1/escape-room/quest/{questId}',
-  Login = '/v1/escape-room/login',
-  Logout = '/v1/escape-room/logout',
-  BookedQuests = '/v1/escape-room/reservation',
-  BookingInfo = '/v1/escape-room/quest/{questId}/booking'
+  Quests = '/quest',
+  SelectedQuest = '/quest/{questId}',
+  Login = '/login',
+  Logout = '/logout',
+  BookedQuests = '/reservation',
+  BookingInfo = '/quest/{questId}/booking'
 }
 
 export enum NameSpace {
@@ -120,15 +120,15 @@ export const URL_MARKER_CURRENT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 
 export const MAP_SIZE = {
-  boolingPage: {
+  bookingPage: {
     height: '529px',
     width: '890px',
     margin: 'auto',
   },
   contactsPage: {
-    height: '579px',
-    width: '1144px',
-    margin: '0 auto 50px',
+    height: '370px',
+    width: '617px',
+    margin: 'auto',
   }
 };
 
@@ -152,3 +152,9 @@ export const INITIAL_FILTER: SelectedFilter[] = [
     filterValue: 'any',
   }
 ];
+
+export const PAGES_LIST = {
+  mainPage: 'mainPage',
+  myQuestsPage: 'myQuestsPage',
+  contacts: 'contacts',
+};

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { QuestCardType } from '../../types/quest-card';
-import { fetchQuestsAction, fetchSelectedQuestAction } from '../api-actions';
+import { fetchQuestsAction, fetchSelectedQuestAction } from '../actions/api-actions';
 import { FILTER_MAP, NameSpace } from '../../consts';
 import { QuestType } from '../../types/quest';
 import { FieldNameToFilter, SelectedFilter } from '../../types/filters';
@@ -10,6 +10,7 @@ type InitialState = {
   selectedQuest: QuestType | null;
   selectedFilters: SelectedFilter[];
   filteredQuestCards: QuestCardType[];
+  hasError: boolean;
 }
 
 const initialState: InitialState = {
@@ -26,6 +27,7 @@ const initialState: InitialState = {
       filterValue: 'any',
     }
   ],
+  hasError: false,
 };
 
 export const questsData = createSlice({
@@ -50,11 +52,15 @@ export const questsData = createSlice({
     builder
       .addCase(fetchQuestsAction.fulfilled, (state, action) => {
         state.questCards = action.payload;
+        state.hasError = false;
 
         state.filteredQuestCards = state.questCards.filter((questCard) => state.selectedFilters.every((filter) => {
           const fieldName: FieldNameToFilter = FILTER_MAP[filter.filterType];
           return questCard[fieldName] === filter.filterValue || filter.filterValue === 'all' || filter.filterValue === 'any';
         }));
+      })
+      .addCase(fetchQuestsAction.rejected, (state) => {
+        state.hasError = true;
       })
       .addCase(fetchSelectedQuestAction.fulfilled, (state, action) => {
         state.selectedQuest = action.payload;

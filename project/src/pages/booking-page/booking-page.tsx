@@ -3,7 +3,7 @@ import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { getBookingInfo, getSelectedBookingPoint } from '../../store/booking-process/booking-process-selectors';
-import { fetchBookingInfoAction } from '../../store/api-actions';
+import { fetchBookingInfoAction } from '../../store/actions/api-actions';
 import { useParams } from 'react-router-dom';
 import { getSelectedQuest } from '../../store/quests-data/quests-data-selectors';
 import Map from '../../components/map/map';
@@ -32,12 +32,16 @@ function BookingPage(): JSX.Element {
 
   const address = selectedBookingPoint?.location.address;
   const title = selectedQuest?.title;
+  const peopleMinMax = selectedQuest?.peopleMinMax;
+
+  // eslint-disable-next-line no-console
+  console.log(bookingInfo);
 
   const onSelectedBookingPointChange = (point: BookingInfo) => dispatch(changeBookingPointAction(point));
 
   return (
     <>
-      <Logo />
+      <Logo currentPage={null} />
       <main className="page-content decorated-page">
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>
@@ -54,13 +58,13 @@ function BookingPage(): JSX.Element {
             <div className="booking-map">
               <div className="map">
                 <div className="map__container">
-                  <Map points={bookingInfo} city={CITY} selectedPoint={selectedBookingPoint} size={MAP_SIZE.boolingPage} office={null} onPointChange={onSelectedBookingPointChange} />
+                  <Map points={bookingInfo} city={CITY} selectedPoint={selectedBookingPoint} size={MAP_SIZE.bookingPage} office={null} onPointChange={onSelectedBookingPointChange} />
                 </div>
               </div>
               <p className="booking-map__address">{`Вы выбрали: ${address}`}</p>
             </div>
           </div>
-          {!!questId && <BookingForm selectedBookingPoint={selectedBookingPoint} questId={questId} />}
+          {!!questId && <BookingForm selectedBookingPoint={selectedBookingPoint} questId={questId} peopleMinMax={peopleMinMax} />}
         </div>
       </main >
       <Footer />

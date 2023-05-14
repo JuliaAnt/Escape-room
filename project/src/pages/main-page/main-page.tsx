@@ -3,22 +3,31 @@ import LevelFilterList from '../../components/level-filter-list/level-filter-lis
 import Logo from '../../components/logo/logo';
 import GenreFilterList from '../../components/genre-filter-list/genre-filter-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { getFilteredQuestCards } from '../../store/quests-data/quests-data-selectors';
-import { fetchQuestsAction } from '../../store/api-actions';
+import { getErrorStatus, getFilteredQuestCards } from '../../store/quests-data/quests-data-selectors';
+import { fetchQuestsAction } from '../../store/actions/api-actions';
 import QuestCardGrid from '../../components/quest-card-grid/quest-card-grid';
 import Footer from '../../components/footer/footer';
+import { PAGES_LIST } from '../../consts';
+import EmptyMainPage from '../empty-main-page/empty-main-page';
 
 function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const questCards = useAppSelector(getFilteredQuestCards);
+  const hasError = useAppSelector(getErrorStatus);
 
   useEffect(() => {
     dispatch(fetchQuestsAction());
   }, [dispatch]);
 
+  if (hasError) {
+    return (
+      <EmptyMainPage />
+    );
+  }
+
   return (
     <>
-      <Logo />
+      <Logo currentPage={PAGES_LIST.mainPage} />
       <main className="page-content">
         <div className="container">
           <div className="page-content__title-wrapper">

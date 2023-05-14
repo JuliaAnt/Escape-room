@@ -1,12 +1,12 @@
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
-import { CITY, MAP_SIZE, OFFICE_COORDS } from '../../consts';
+import { CITY, MAP_SIZE, OFFICE_COORDS, PAGES_LIST } from '../../consts';
 
 function ContactsPage(): JSX.Element {
   return (
     <>
-      <Logo />
+      <Logo currentPage={PAGES_LIST.contacts} />
       <main className="page-content decorated-page">
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>
@@ -48,7 +48,7 @@ function ContactsPage(): JSX.Element {
             <div className="contacts__map">
               <div className="map">
                 <div className="map__container">
-                  <Map points={null} city={CITY} selectedPoint={null} size={MAP_SIZE.boolingPage} onPointChange={null} office={OFFICE_COORDS} />
+                  <Map points={null} city={CITY} selectedPoint={null} size={MAP_SIZE.contactsPage} onPointChange={null} office={OFFICE_COORDS} />
                 </div>
               </div>
             </div>

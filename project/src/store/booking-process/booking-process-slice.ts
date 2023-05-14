@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { BookedQuest } from '../../types/booked-quest';
 import { NameSpace } from '../../consts';
-import { fetchBookedQuestsAction, fetchBookingInfoAction } from '../api-actions';
+import { fetchBookedQuestsAction, fetchBookingInfoAction } from '../actions/api-actions';
 import { BookingInfo } from '../../types/booking-info';
 
 type InitialState = {

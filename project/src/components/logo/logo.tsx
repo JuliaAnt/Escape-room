@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
-import { AppRoute, AuthorizationStatus } from '../../consts';
-import { logoutAction } from '../../store/api-actions';
+import { AppRoute, AuthorizationStatus, PAGES_LIST } from '../../consts';
+import { logoutAction } from '../../store/actions/api-actions';
 
-function Logo(): JSX.Element {
+type LogoProps = {
+  currentPage: string | null;
+}
+
+function Logo({ currentPage }: LogoProps): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
@@ -20,10 +24,10 @@ function Logo(): JSX.Element {
           <nav className="main-nav header__main-nav">
             <ul className="main-nav__list">
               <li className="main-nav__item">
-                <Link className="link not-disabled active" to={AppRoute.Main}>Квесты</Link>
+                <Link className={`link${currentPage === PAGES_LIST.mainPage ? ' active' : ''}`} to={AppRoute.Main}>Квесты</Link>
               </li>
               <li className="main-nav__item">
-                <Link className="link" to={AppRoute.Contact}>Контакты</Link>
+                <Link className={`link${currentPage === PAGES_LIST.contacts ? ' active' : ''}`} to={AppRoute.Contact}>Контакты</Link>
               </li>
             </ul>
           </nav>
@@ -47,13 +51,13 @@ function Logo(): JSX.Element {
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <Link className="link" to={AppRoute.Main}>Квесты</Link>
+              <Link className={`link${currentPage === PAGES_LIST.mainPage ? ' active' : ''}`} to={AppRoute.Main}>Квесты</Link>
             </li>
             <li className="main-nav__item">
-              <Link className="link" to={AppRoute.Contact}>Контакты</Link>
+              <Link className={`link${currentPage === PAGES_LIST.contacts ? ' active' : ''}`} to={AppRoute.Contact}>Контакты</Link>
             </li>
             <li className="main-nav__item">
-              <Link className="link" to={AppRoute.MyQuests}>Мои бронирования</Link>
+              <Link className={`link${currentPage === PAGES_LIST.myQuestsPage ? ' active' : ''}`} to={AppRoute.MyQuests}>Мои бронирования</Link>
             </li>
           </ul>
         </nav>

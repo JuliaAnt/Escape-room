@@ -11,7 +11,7 @@ const StatusCodeMapping: Record<number, boolean> = {
 
 const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
 
-const BASE_URL = 'https://grading.design.pages.academy';
+const BASE_URL = 'https://grading.design.pages.academy/v1/escape-room';
 const TIMEOUT = 5000;
 
 export const createApi = (): AxiosInstance => {

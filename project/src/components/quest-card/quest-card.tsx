@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { cancelBookingAction } from '../../store/api-actions';
+import { cancelBookingAction } from '../../store/actions/api-actions';
 import { getBookedQuests } from '../../store/booking-process/booking-process-selectors';
 import { BookedQuest } from '../../types/booked-quest';
 import { QuestCardType } from '../../types/quest-card';
