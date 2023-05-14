@@ -34,9 +34,6 @@ function BookingPage(): JSX.Element {
   const title = selectedQuest?.title;
   const peopleMinMax = selectedQuest?.peopleMinMax;
 
-  // eslint-disable-next-line no-console
-  console.log(bookingInfo);
-
   const onSelectedBookingPointChange = (point: BookingInfo) => dispatch(changeBookingPointAction(point));
 
   return (

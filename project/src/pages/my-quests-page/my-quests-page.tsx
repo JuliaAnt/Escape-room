@@ -17,14 +17,18 @@ function MyQuestsPage(): JSX.Element {
 
   const bookedQuests = useAppSelector(getBookedQuests);
 
-  // eslint-disable-next-line no-console
-  console.log(bookedQuests);
-
   const bookedRenderedQuests: QuestCardType[] = [];
-  bookedQuests.map((bookedQuest) => bookedRenderedQuests.push(bookedQuest.quest));
-
-  // eslint-disable-next-line no-console
-  console.log(bookedRenderedQuests);
+  bookedQuests.map((bookedQuest) => {
+    bookedRenderedQuests.push({
+      time: bookedQuest.time,
+      date: bookedQuest.date,
+      address: bookedQuest.location.address,
+      peopleCount: bookedQuest.peopleCount,
+      bookedQuestId: bookedQuest.id,
+      ...bookedQuest.quest,
+    });
+    return bookedRenderedQuests;
+  });
 
   return (
     <>

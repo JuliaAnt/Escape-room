@@ -6,4 +6,9 @@ export type QuestCardType = {
   previewImgWebp: string;
   peopleMinMax: [number, number];
   level: string;
+  time: string | null;
+  date: string | null;
+  address: string | null;
+  peopleCount: number | null;
+  bookedQuestId: string | null;
 }
