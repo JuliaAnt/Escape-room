@@ -17,9 +17,17 @@ function BookingPage(): JSX.Element {
   const { id: questId } = useParams<{ id: string }>();
 
   useEffect(() => {
-    if (questId) {
-      dispatch(fetchBookingInfoAction(questId));
+    let isMounted = true;
+
+    if (isMounted) {
+      if (questId) {
+        dispatch(fetchBookingInfoAction(questId));
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [questId, dispatch]);
 
   const bookingInfo = useAppSelector(getBookingInfo);

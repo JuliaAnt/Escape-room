@@ -14,13 +14,29 @@ function QuestPage(): JSX.Element {
   const { id: questId } = useParams<{ id: string }>();
 
   useEffect(() => {
-    if (questId) {
-      dispatch(fetchSelectedQuestAction(questId));
+    let isMounted = true;
+
+    if (isMounted) {
+      if (questId) {
+        dispatch(fetchSelectedQuestAction(questId));
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [questId, dispatch]);
 
   useEffect(() => {
-    dispatch(changeBookingPointAction(null));
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(changeBookingPointAction(null));
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch]);
 
 

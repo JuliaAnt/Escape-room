@@ -16,7 +16,15 @@ function MainPage(): JSX.Element {
   const hasError = useAppSelector(getErrorStatus);
 
   useEffect(() => {
-    dispatch(fetchQuestsAction());
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(fetchQuestsAction());
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch]);
 
   if (hasError) {

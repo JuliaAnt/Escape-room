@@ -12,7 +12,15 @@ function MyQuestsPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchBookedQuestsAction());
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(fetchBookedQuestsAction());
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch]);
 
   const bookedQuests = useAppSelector(getBookedQuests);
