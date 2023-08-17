@@ -41,7 +41,7 @@ function QuestPage(): JSX.Element {
 
 
   const quest = useAppSelector(getSelectedQuest);
-  const { title, type, previewImg, previewImgWebp, level, description, peopleMinMax, coverImg, coverImgWebp } = quest || {};
+  const { title, type, level, description, peopleMinMax, coverImg } = quest || {};
   const currentLevel = LEVEL_FILTERS.find((levelToFind) => levelToFind.type === level);
   const currentGenre = GENRE_FILTERS.find((genreToFind) => genreToFind.type === type);
 
@@ -57,8 +57,7 @@ function QuestPage(): JSX.Element {
       <main className="decorated-page quest-page">
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>
-            <source type="image/webp" srcSet={`${previewImgWebp || ''}, ${coverImgWebp || ''} 2x`} />
-            <img src={previewImg} srcSet={`${coverImg || ''} 2x`} width="1366" height="768" alt="" />
+            <img srcSet={`${coverImg || ''} 2x`} width="1366" height="768" alt="" />
           </picture>
         </div>
         <div className="container container--size-l">
